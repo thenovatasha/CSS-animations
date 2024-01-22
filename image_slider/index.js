@@ -1,17 +1,43 @@
-var scrollWrapper = document.querySelector('.scroll-wrapper');
-var sections = document.querySelectorAll('.image');
-var currentIndex = 0;
+const slider = document.querySelector('.slider');
+const leftArrow = document.querySelector('.left');
+const rightArrow = document.querySelector('.right');
+const indicatorParents = document.querySelector('.controls ul');
+let sectionIndex = 0;
 
-document.querySelector('.left-arrow').addEventListener('click', function() {
-    if (currentIndex > 0) {
-        currentIndex--;
-        sections[currentIndex].scrollIntoView({ behavior: 'smooth' });
-    }
+document.querySelectorAll('.controls li').forEach(function(indicator, idX) {
+    indicator.addEventListener('click', function() {
+    clearInterval(autoSlide);
+    moveSlider(idX);
+    autoSlide = setInterval(slideRight, 5000);
+    });
 });
 
-document.querySelector('.right-arrow').addEventListener('click', function() {
-    if (currentIndex < sections.length - 1) {
-        currentIndex++;
-        sections[currentIndex].scrollIntoView({ behavior: 'smooth' });
-    }
+rightArrow.addEventListener('click', () => {
+    clearInterval(autoSlide);
+    slideRight();
+    autoSlide = setInterval(slideRight, 5000);
 });
+
+leftArrow.addEventListener('click', () => {
+    clearInterval(autoSlide)
+    slideLeft();
+    autoSlide = setInterval(slideRight, 5000);
+});
+
+function slideRight() {
+    sectionIndex = (sectionIndex < 3) ? sectionIndex + 1: 0;
+    moveSlider(sectionIndex);
+}
+function slideLeft() {
+    sectionIndex = (sectionIndex > 0) ? sectionIndex - 1 : 0;
+    moveSlider(sectionIndex);
+}
+
+function moveSlider(sectionIndex) {
+    slider.style.transform = `translate(${sectionIndex * -25}%)`;
+    document.querySelector('.controls .selected').classList.remove('selected');
+    indicatorParents.children[sectionIndex].classList.add('selected');
+}
+
+let autoSlide = setInterval(slideRight, 5000);
+

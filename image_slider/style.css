@@ -1,12 +1,13 @@
 .container {
-    width: 40%;
-    margin: 10 0px auto;
+    width: 80%;
+    margin: 20px auto;
 }
 
 .carousel {
     border: 2px solid #ccc;
     height: 400px;
     position: relative;
+    overflow: hidden;
     
 }
 .slider {
@@ -14,7 +15,7 @@
     display: flex;
     width: 400%;
     border: 1px solid red;
-    transform: translate(-25%);
+    transition: transform 0.5s ease-in-out;
 }
 
 .slider section {
@@ -33,4 +34,33 @@
 }
 .arrow.right {
     right: 10px;
+}
+
+.arrow {
+    font-size: 30px;
+    transform: translateY(-50%);
+}
+.controls ul {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
+
+.controls ul li {
+    width: 20px;
+    height: 20px;
+    list-style: none;
+    cursor: pointer;
+    border: 2px solid #333;
+    border-radius: 50px;
+    margin: 10px 10px;
+    background: #333;
+}
+
+.controls ul li.selected {
+    background: transparent;
 }
